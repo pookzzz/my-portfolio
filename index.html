@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080a16">
+  <meta name="description" content="FancyPantsFX is an independent studio for expressive real-time effects, shaders, and creative tools.">
+  <title>FancyPantsFX — Real-time effects with character</title>
+  <link rel="preload" as="image" href="assets/glow-ribbon.png">
+  <style>
+    :root { color-scheme: dark; --bg:#080a16; --ink:#f6f4ff; --muted:#aaaac2; --line:rgba(212,211,255,.19); --pink:#ff83dc; --cyan:#80ddff; }
+    * { box-sizing:border-box }
+    html { scroll-behavior:smooth }
+    body { margin:0; background:var(--bg); color:var(--ink); font-family:Inter, ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+    a { color:inherit; text-decoration:none }
+    a:focus-visible { outline:2px solid var(--cyan); outline-offset:5px }
+    .shell { width:min(1400px, calc(100% - 72px)); margin-inline:auto }
+    .nav { position:absolute; z-index:3; inset:0 0 auto; height:90px; display:flex; align-items:center; justify-content:space-between }
+    .brand { font-size:1.1rem; font-weight:850; letter-spacing:-.055em; white-space:nowrap }
+    .brand span { color:var(--pink) }
+    .navlinks { display:flex; align-items:center; gap:32px; font-size:.87rem; color:#d5d3e8 }
+    .navlinks a:hover,.footer a:hover { color:var(--cyan) }
+    .navlinks .pill { border:1px solid rgba(220,220,255,.48); border-radius:100px; padding:12px 19px; color:#fff }
+    .hero { position:relative; min-height:min(810px, 100svh); min-height:740px; overflow:hidden; isolation:isolate; background:#060817 }
+    .hero::before { content:""; position:absolute; inset:0; z-index:-2; background: url('assets/glow-ribbon.png') center center / cover no-repeat; opacity:.91 }
+    .hero::after { content:""; position:absolute; inset:0; z-index:-1; background:linear-gradient(90deg,rgba(5,7,19,.92) 0%,rgba(5,7,19,.64) 31%,rgba(5,7,19,.02) 68%),linear-gradient(0deg,#080a16 0%,transparent 23%); }
+    .hero-content { padding-top:226px; padding-bottom:155px }
+    .eyebrow { display:flex; align-items:center; gap:12px; color:#d1d7f7; font-size:.75rem; font-weight:700; letter-spacing:.19em; text-transform:uppercase }
+    .eyebrow::before { content:""; width:27px; height:1px; background:var(--pink) }
+    h1 { max-width:760px; font-size:clamp(4.4rem,9vw,9.3rem); line-height:.88; letter-spacing:-.09em; margin:29px 0 32px; font-weight:820 }
+    h1 em { display:block; font-style:normal; color:#f6f4ff; text-shadow:0 0 34px rgba(111,179,255,.25) }
+    .hero-copy { max-width:530px; color:#d3d3e5; font-size:clamp(1.05rem,1.6vw,1.35rem); line-height:1.55; margin:0 0 36px }
+    .button { display:inline-flex; align-items:center; justify-content:center; min-height:51px; border:1px solid #f7e8ff; border-radius:100px; padding:0 25px; font-size:.86rem; font-weight:750; letter-spacing:.01em; transition:background .2s,color .2s,transform .2s }
+    .button:hover { background:#f7e8ff; color:#080a16; transform:translateY(-2px) }
+    .hero-bottom { position:absolute; bottom:43px; left:0; right:0; display:flex; justify-content:space-between; color:#b1afc9; font-size:.7rem; font-weight:700; letter-spacing:.17em; text-transform:uppercase }
+    .hero-bottom span:last-child { color:#f2dcfa }
+    .section { padding:110px 0; border-top:1px solid var(--line) }
+    .section-header { display:grid; grid-template-columns:1fr 2fr; gap:36px; align-items:start; margin-bottom:55px }
+    .kicker { color:var(--pink); font-size:.75rem; font-weight:800; letter-spacing:.16em; text-transform:uppercase }
+    h2 { font-size:clamp(2.6rem,5.2vw,5.6rem); line-height:1; letter-spacing:-.065em; font-weight:750; margin:0 }
+    .intro { max-width:910px }
+    .intro p { color:#c7c6db; max-width:710px; font-size:1.17rem; line-height:1.65; margin:28px 0 0 }
+    .offer-grid { display:grid; grid-template-columns:repeat(3,1fr); border-top:1px solid var(--line); border-left:1px solid var(--line) }
+    .offer { min-height:280px; padding:32px; border-right:1px solid var(--line); border-bottom:1px solid var(--line); display:flex; flex-direction:column; justify-content:space-between; background:linear-gradient(145deg,rgba(54,49,104,.18),rgba(9,10,24,0) 70%) }
+    .offer .number { color:var(--cyan); font-size:.78rem; font-weight:700; letter-spacing:.12em }
+    .offer h3 { font-size:1.6rem; letter-spacing:-.045em; margin:0 0 12px }
+    .offer p { color:var(--muted); line-height:1.55; margin:0; font-size:.98rem }
+    .feature { display:grid; grid-template-columns:1.25fr .75fr; min-height:470px; background:#111126; border:1px solid var(--line); overflow:hidden }
+    .feature-art { min-height:430px; background:url('assets/glow-ribbon.png') center / cover no-repeat }
+    .feature-copy { padding:clamp(36px,5vw,72px); display:flex; flex-direction:column; align-items:flex-start; justify-content:center }
+    .feature-copy h2 { margin:23px 0; font-size:clamp(2.4rem,4.3vw,4.8rem) }
+    .feature-copy p { font-size:1.05rem; line-height:1.6; color:#c5c4da; max-width:420px; margin:0 0 30px }
+    .tag { border:1px solid rgba(255,131,220,.58); color:#f3b9e4; border-radius:100px; padding:8px 12px; font-size:.72rem; letter-spacing:.1em; text-transform:uppercase }
+    .note { font-size:.85rem; color:var(--muted); margin-top:18px }
+    .outro { padding:100px 0 115px; display:flex; justify-content:space-between; gap:40px; align-items:end }
+    .outro h2 { max-width:850px }
+    .outro p { color:var(--muted); max-width:370px; line-height:1.6; font-size:1rem; margin:0 }
+    .footer { border-top:1px solid var(--line); padding:30px 0 45px; display:flex; justify-content:space-between; gap:20px; color:#9998b4; font-size:.84rem }
+    @media(max-width:800px) { .shell{width:min(100% - 36px,600px)} .nav{height:75px}.navlinks{gap:16px}.navlinks a:first-child{display:none}.navlinks .pill{padding:10px 14px}.hero{min-height:750px}.hero::before{background-position:62% center;opacity:.78}.hero::after{background:linear-gradient(90deg,rgba(5,7,19,.88),rgba(5,7,19,.35)),linear-gradient(0deg,#080a16,transparent 35%)}.hero-content{padding-top:204px}.hero-bottom{bottom:30px}.section{padding:76px 0}.section-header{display:block}.section-header h2{margin-top:20px}.offer-grid{grid-template-columns:1fr}.offer{min-height:215px}.feature{grid-template-columns:1fr}.feature-art{min-height:280px}.feature-copy{padding:36px}.outro{display:block;padding:80px 0}.outro p{margin-top:26px}.footer{flex-direction:column} }
+    @media(max-width:430px) { h1{font-size:clamp(3.7rem,15vw,5rem)}.hero-copy{font-size:1.04rem}.navlinks .pill{font-size:.77rem}.hero-bottom span:last-child{display:none} }
+    @media(prefers-reduced-motion:reduce) { html{scroll-behavior:auto}.button{transition:none} }
+  </style>
+</head>
+<body>
+  <header class="nav shell">
+    <a href="#top" class="brand" aria-label="FancyPantsFX home">FancyPants<span>FX</span></a>
+    <nav class="navlinks" aria-label="Main navigation">
+      <a href="#studio">The studio</a><a href="#work">What we make</a><a class="pill" href="#featured">First study</a>
+    </nav>
+  </header>
+  <main id="top">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="shell hero-content">
+        <div class="eyebrow">Independent effects studio</div>
+        <h1 id="hero-title">Make it<br><em>feel alive.</em></h1>
+        <p class="hero-copy">Expressive real-time effects, shaders, and creative tools for the moments that deserve a little extra magic.</p>
+        <a class="button" href="#work">Explore the studio</a>
+      </div>
+      <div class="hero-bottom shell"><span>Designed to move you</span><span>Shaders · Motion · Play</span></div>
+    </section>
+    <section id="studio" class="section shell" aria-labelledby="studio-title">
+      <div class="section-header"><div class="kicker">01 / The studio</div><div class="intro"><h2 id="studio-title">A little technical.<br>A lot of feeling.</h2><p>FancyPantsFX makes effects that do more than decorate a frame. We combine shader craft, motion, and playful art direction to give digital experiences a distinctive pulse.</p></div></div>
+    </section>
+    <section id="work" class="section shell" aria-labelledby="work-title">
+      <div class="section-header"><div class="kicker">02 / What we make</div><h2 id="work-title">Built for the<br>beautifully unusual.</h2></div>
+      <div class="offer-grid">
+        <article class="offer"><span class="number">01 /</span><div><h3>Real-time effects</h3><p>Responsive visual moments for interactive worlds, products, and playful experiences.</p></div></article>
+        <article class="offer"><span class="number">02 /</span><div><h3>Shaders & materials</h3><p>From luminous surfaces to stylized distortions, with the controls artists actually need.</p></div></article>
+        <article class="offer"><span class="number">03 /</span><div><h3>Creative tools</h3><p>Practical systems that make experimenting, iterating, and making more possible.</p></div></article>
+      </div>
+    </section>
+    <section id="featured" class="section shell" aria-labelledby="featured-title">
+      <div class="feature"><div class="feature-art" role="img" aria-label="Abstract cyan and magenta luminous ribbon flowing through a dark scene"></div><div class="feature-copy"><span class="tag">First study · in development</span><h2 id="featured-title">Light with<br>an attitude.</h2><p>An iridescent energy ribbon explores color, movement, and the edge between spectacle and control.</p><span class="kicker">More to come</span></div></div>
+      <p class="note">Concept artwork for the first FancyPantsFX effect study. A product download is not available yet.</p>
+    </section>
+    <section class="outro shell" aria-label="Studio note"><h2>There’s more<br>in the works.</h2><p>This is the first look at FancyPantsFX. Effect studies and tools will appear here as they are ready.</p></section>
+  </main>
+  <footer class="footer shell"><a href="#top" class="brand">FancyPants<span>FX</span></a><span>Independent real-time effects studio</span><span>© 2026 FancyPantsFX</span></footer>
+</body>
+</html>
