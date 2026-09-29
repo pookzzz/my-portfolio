@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#080a16">
   <meta name="description" content="FancyPantsFX is an independent studio for expressive real-time effects, shaders, and creative tools.">
   <title>FancyPantsFX — Real-time effects with character</title>
-  <link rel="preload" as="image" href="assets/glow-ribbon.png">
+  <link rel="preload" as="image" href="assets/glow-ribbon.webp">
   <style>
     :root { color-scheme: dark; --bg:#080a16; --ink:#f6f4ff; --muted:#aaaac2; --line:rgba(212,211,255,.19); --pink:#ff83dc; --cyan:#80ddff; }
     * { box-sizing:border-box }
@@ -22,7 +22,7 @@
     .navlinks a:hover,.footer a:hover { color:var(--cyan) }
     .navlinks .pill { border:1px solid rgba(220,220,255,.48); border-radius:100px; padding:12px 19px; color:#fff }
     .hero { position:relative; min-height:min(810px, 100svh); min-height:740px; overflow:hidden; isolation:isolate; background:#060817 }
-    .hero::before { content:""; position:absolute; inset:0; z-index:-2; background: url('assets/glow-ribbon.png') center center / cover no-repeat; opacity:.91 }
+    .hero::before { content:""; position:absolute; inset:0; z-index:-2; background: url('assets/glow-ribbon.webp') center center / cover no-repeat; opacity:.91 }
     .hero::after { content:""; position:absolute; inset:0; z-index:-1; background:linear-gradient(90deg,rgba(5,7,19,.92) 0%,rgba(5,7,19,.64) 31%,rgba(5,7,19,.02) 68%),linear-gradient(0deg,#080a16 0%,transparent 23%); }
     .hero-content { padding-top:226px; padding-bottom:155px }
     .eyebrow { display:flex; align-items:center; gap:12px; color:#d1d7f7; font-size:.75rem; font-weight:700; letter-spacing:.19em; text-transform:uppercase }
@@ -46,7 +46,7 @@
     .offer h3 { font-size:1.6rem; letter-spacing:-.045em; margin:0 0 12px }
     .offer p { color:var(--muted); line-height:1.55; margin:0; font-size:.98rem }
     .feature { display:grid; grid-template-columns:1.25fr .75fr; min-height:470px; background:#111126; border:1px solid var(--line); overflow:hidden }
-    .feature-art { min-height:430px; background:url('assets/glow-ribbon.png') center / cover no-repeat }
+    .feature-art { min-height:430px; background:url('assets/glow-ribbon.webp') center / cover no-repeat }
     .feature-copy { padding:clamp(36px,5vw,72px); display:flex; flex-direction:column; align-items:flex-start; justify-content:center }
     .feature-copy h2 { margin:23px 0; font-size:clamp(2.4rem,4.3vw,4.8rem) }
     .feature-copy p { font-size:1.05rem; line-height:1.6; color:#c5c4da; max-width:420px; margin:0 0 30px }
@@ -98,3 +98,4 @@
   <footer class="footer shell"><a href="#top" class="brand">FancyPants<span>FX</span></a><span>Independent real-time effects studio</span><span>© 2026 FancyPantsFX</span></footer>
 </body>
 </html>
+
